@@ -3,9 +3,8 @@ from flask_cors import CORS, cross_origin
 import pickle
 import numpy as np
 import pandas as pd
-import os
 
-model = pickle.load(open('models/random_forest.pkl', 'rb'))
+model = pickle.load(open('random_forest.pkl', 'rb'))
 app = Flask(__name__)
 CORS(app)
 @app.route('/predict', methods=['POST'])
@@ -25,5 +24,4 @@ def serve():
     return jsonify("This is the backend for the Fish Classifier")
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=5000)
