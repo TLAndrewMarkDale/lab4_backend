@@ -6,7 +6,7 @@ import pandas as pd
 import os
 
 model = pickle.load(open('models/random_forest.pkl', 'rb'))
-app = Flask(__name__, static_folder='../build', static_url_path='')
+app = Flask(__name__)
 CORS(app)
 @app.route('/predict', methods=['POST'])
 @cross_origin()
@@ -19,10 +19,10 @@ def predict():
     prediction = model.predict(data)
     return jsonify(prediction[0])
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 @cross_origin()
 def serve():
-    return app.send_static_file(app.static_folder, 'index.html')
+    return jsonify("This is the backend for the Fish Classifier")
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
